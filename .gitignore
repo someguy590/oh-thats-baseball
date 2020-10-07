@@ -3,3 +3,6 @@
 
 # environments
 venv/
+
+# python
+__pycache__/
