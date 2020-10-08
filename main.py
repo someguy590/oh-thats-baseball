@@ -1,6 +1,9 @@
 from player import Player
 from itertools import cycle
 from random import randint
+from swing_result import SwingResult
+from deadball_enums import SwingResultType
+from tables import hit, crit_hit
 
 print("OH! THAT'S A BASEBALL!!")
 
@@ -56,14 +59,21 @@ while not thats_the_ballgame:
     print(f'swing: {swing} + pitch: {pitch} = mss: {mss}')
 
     if mss <= 5:
-        print('crit')
+        swing_result = crit_hit()
     elif mss <= batter.bt:
-        print('hit')
+        swing_result = hit()
     elif mss <= batter.bt + 5:
-        print('walk')
+        swing_result = SwingResult(SwingResultType.WALK)
     else:
-        print('out')
-        outs += 1
+        swing_result = SwingResult(SwingResultType.OUT, 1)
+
+    if swing_result.type is SwingResultType.OUT:
+        outs += swing_result.value
+    elif swing_result.type is SwingResultType.WALK:
+        print('Walk')
+    else:
+        batter_move, runner_move = swing_result.value
+        print(f'Hit! Runners take {runner_move} bases, batter takes {batter_move} bases')
 
     if outs >= 3:
         outs = 0
