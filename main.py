@@ -73,7 +73,7 @@ while not thats_the_ballgame:
         print('Walk')
     else:
         batter_move, runner_move = swing_result.value
-        print(f'Hit! Runners take {runner_move} bases, batter takes {batter_move} bases')
+        print(f'Hit! Runners take {runner_move} base(s), batter takes {batter_move} base(s)')
 
     if outs >= 3:
         outs = 0
