@@ -73,7 +73,16 @@ while not thats_the_ballgame:
         outs += swing_result.value
         print('OUT!')
     elif swing_result.type is SwingResultType.WALK:
+        bases = list(bases)
+        for i, base in enumerate(reversed(bases)):
+            if base != '1':
+                bases[-i - 1] = '1'
+                bases = "".join(bases)
+                break
+        else:
+            runs_this_half_inning += 1
         print('Walk')
+        print(f'Bases: {bases}')
     else:
         batter_move, runner_move = swing_result.value
         print(f'Hit! Runners take {runner_move} base(s), batter takes {batter_move} base(s)')
