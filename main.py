@@ -84,8 +84,38 @@ while not thats_the_ballgame:
         print('Walk')
         print(f'Bases: {bases}')
     else:
-        batter_move, runner_move = swing_result.value
-        print(f'Hit! Runners take {runner_move} base(s), batter takes {batter_move} base(s)')
+        batter_moves, runners_move = swing_result.value
+        if runners_move >= 3:
+            runs_this_half_inning += bases.count('1')
+            bases = '000'
+        elif runners_move == 2:
+            if bases[-3] == '1':
+                runs_this_half_inning += 1
+            if bases[-2] == '1':
+                runs_this_half_inning += 1
+            if bases[-1] == '1':
+                bases = '100'
+            else:
+                bases = '000'
+        else:
+            if bases[-3] == '1':
+                runs_this_half_inning += 1
+                bases = '0' + bases[-2:]
+            if bases[-2] == '1':
+                bases = '10' + bases[-1]
+            if bases[-1] == '1':
+                bases = bases[-3] + '10'
+
+        if batter_moves < 4:
+            bases = list(bases)
+            bases[-batter_moves] = '1'
+            bases = "".join(bases)
+        else:
+            runs_this_half_inning += 1
+
+        print(f'Hit! Runners take {runners_move} base(s), batter takes {batter_moves} base(s)')
+        print(bases)
+
     print()
 
     if outs >= 3:
