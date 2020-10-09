@@ -6,6 +6,7 @@ from deadball_enums import SwingResultType
 from tables import hit, crit_hit
 
 print("OH! THAT'S A BASEBALL!!")
+print()
 
 away_team = [
     Player('Immanuel Kant', 'SS', 29, 'S', ['S+', 'D+']),
@@ -70,11 +71,13 @@ while not thats_the_ballgame:
 
     if swing_result.type is SwingResultType.OUT:
         outs += swing_result.value
+        print('OUT!')
     elif swing_result.type is SwingResultType.WALK:
         print('Walk')
     else:
         batter_move, runner_move = swing_result.value
         print(f'Hit! Runners take {runner_move} base(s), batter takes {batter_move} base(s)')
+    print()
 
     if outs >= 3:
         outs = 0
