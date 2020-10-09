@@ -49,6 +49,7 @@ scoreboard = [
 runs_this_half_inning = 0
 outs = 0
 bases = '000'
+inning = 1
 while not thats_the_ballgame:
     batter = next(batters)
 
@@ -119,12 +120,28 @@ while not thats_the_ballgame:
     print()
 
     if outs >= 3:
-        outs = 0
-        bases = '000'
 
         if is_away_team_batting:
+            score_away[0] += runs_this_half_inning
+            score_away[1].append(runs_this_half_inning)
             is_away_team_batting = False
             batters = home_batters
             pitcher = away_team[-1]
+
+            thats_the_ballgame = inning >= 9 and score_away[0] < score_home[0]
         else:
-            thats_the_ballgame = True
+            score_home[0] += runs_this_half_inning
+            score_home[1].append(runs_this_half_inning)
+            is_away_team_batting = True
+            batters = away_batters
+            pitcher = home_team[-1]
+
+            thats_the_ballgame = inning >= 9 and score_home[0] != score_away[0]
+            inning += 1
+
+        print(scoreboard)
+        if thats_the_ballgame:
+            print("That's the ball game!")
+        outs = 0
+        bases = '000'
+        runs_this_half_inning = 0
