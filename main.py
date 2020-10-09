@@ -5,8 +5,6 @@ from swing_result import SwingResult
 from deadball_enums import SwingResultType
 from tables import hit, crit_hit
 
-print("OH! THAT'S A BASEBALL!!")
-print()
 
 away_team = [
     Player('Immanuel Kant', 'SS', 29, 'S', ['S+', 'D+']),
@@ -50,6 +48,8 @@ runs_this_half_inning = 0
 outs = 0
 bases = '000'
 inning = 1
+print("OH! THAT'S A BASEBALL!!")
+print()
 while not thats_the_ballgame:
     batter = next(batters)
 
