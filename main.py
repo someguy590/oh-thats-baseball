@@ -47,6 +47,7 @@ scoreboard = [
 ]
 runs_this_half_inning = 0
 outs = 0
+bases = '000'
 while not thats_the_ballgame:
     batter = next(batters)
 
@@ -77,6 +78,7 @@ while not thats_the_ballgame:
 
     if outs >= 3:
         outs = 0
+        bases = '000'
 
         if is_away_team_batting:
             is_away_team_batting = False
