@@ -47,7 +47,6 @@ scoreboard = [
 runs_this_half_inning = 0
 outs = 0
 bases = '000'
-inning = 1
 print("OH! THAT'S A BASEBALL!!")
 print()
 while not thats_the_ballgame:
