@@ -6,6 +6,24 @@ from deadball_enums import SwingResultType
 from tables import hit, crit_hit
 
 
+def print_score(score):
+    n = max(9, len(score[0][1]))
+    print('     ', end='')
+    print(*range(1, n + 1))
+    dash_count = (4 + 2 * n) + n - 9
+    print('-' * dash_count)
+
+    print('Away ', end='')
+    print(*score[0][1][:9], end='  ')
+    print(*score[0][1][9:], sep='  ')
+
+    print('Home ', end='')
+    print(*score[1][1][:9], end='  ')
+    print(*score[1][1][9:], sep='  ')
+
+    print('Away:', score[0][0], 'Home:', score[1][0])
+
+
 away_team = [
     Player('Immanuel Kant', 'SS', 29, 'S', ['S+', 'D+']),
     Player('Friedrich Nietzsche', 'LF', 34, 'L', ['C+']),
@@ -73,6 +91,7 @@ while not thats_the_ballgame:
         outs += swing_result.value
         print('OUT!')
     elif swing_result.type is SwingResultType.WALK:
+        old_bases = bases
         bases = list(bases)
         for i, base in enumerate(reversed(bases)):
             if base != '1':
@@ -82,8 +101,9 @@ while not thats_the_ballgame:
         else:
             runs_this_half_inning += 1
         print('Walk')
-        print(f'Bases: {bases}')
+        print(f'Bases: {old_bases} -> {bases}')
     else:
+        old_bases = bases
         batter_moves, runners_move = swing_result.value
         if runners_move >= 3:
             runs_this_half_inning += bases.count('1')
@@ -114,7 +134,7 @@ while not thats_the_ballgame:
             runs_this_half_inning += 1
 
         print(f'Hit! Runners take {runners_move} base(s), batter takes {batter_moves} base(s)')
-        print(bases)
+        print(f'Bases: {old_bases} -> {bases}')
 
     print()
 
@@ -138,7 +158,9 @@ while not thats_the_ballgame:
             thats_the_ballgame = inning >= 9 and score_home[0] != score_away[0]
             inning += 1
 
-        print(scoreboard)
+        print_score(scoreboard)
+        print()
+
         if thats_the_ballgame:
             print("That's the ball game!")
         outs = 0
